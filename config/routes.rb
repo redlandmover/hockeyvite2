@@ -1,7 +1,13 @@
 Rails.application.routes.draw do
   resources :games
-  resources :teams
+  resources :teams do
+    member do
+      post 'add_player'
+      post 'remove_player'
+    end
+  end
   devise_for :players
+
 
 
 

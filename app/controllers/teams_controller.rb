@@ -1,5 +1,6 @@
 class TeamsController < ApplicationController
-  before_action :set_team, only: [:show, :edit, :update, :destroy]
+  before_action :set_team, only: [:show, :edit, :update, :destroy,
+    :remove_player, :add_player]
 
   # GET /teams
   # GET /teams.json
@@ -60,6 +61,17 @@ class TeamsController < ApplicationController
       format.html { redirect_to teams_url, notice: 'Team was successfully destroyed.' }
       format.json { head :no_content }
     end
+  end
+
+  def add_player
+    @team.add_player(params[:usa_number])
+    redirect_to @team, notice: 'Player Added'
+  end
+
+  def remove_player
+    @team.remove_player(params[:usa_number])
+
+    redirect_to @team, notice: 'Player Removed'
   end
 
   private

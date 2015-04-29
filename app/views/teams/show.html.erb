@@ -1,10 +1,45 @@
-<p id="notice"><%= notice %></p>
 
-<table>
-<% @players.each do |player| %>
-  <%= player.name %>
-  <%= player.usa_number %>
+<div id="roster">
+  <h2><%=@team.name%> Roster </h2>
+  <table>
+    <thead>
+      <tr>
+        <th colspan="1"></th>
+        <th>Player Name</th>
+        <th>Player Number</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @players.each do |player| %>
+        <tr>
+          <td>  <%= player.name %> </td>
+          <td>  <%= player.usa_number %> </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+
+<div id="add_player">
+  <h2> Add a Player </h2>
+  <%= form_tag(add_player_team_path, method: "post") do %>
+    <%= label_tag(:usa_number, "Player's USA Number:") %>
+    <%= text_field_tag(:usa_number) %>
+    <%= submit_tag("Add Player") %>
 <% end %>
+</div>
+<br>
+<div id="remove_player">
+  <h2> Remove a Player </h2>
+  <%= form_tag(remove_player_team_path, method: "post") do %>
+    <%= label_tag(:usa_number, "Player's USA Number:") %>
+    <%= select_tag("usa_number", options_from_collection_for_select(@players, 'usa_number', 'name') ) %>
+    <%= submit_tag("Remove Player") %>
+<% end %>
+</div>
 
+
+<br>
 <%= link_to 'Edit', edit_team_path(@team) %> |
 <%= link_to 'Back', teams_path %>
