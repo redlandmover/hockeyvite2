@@ -5,5 +5,5 @@ class Player < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable
 
   has_many :teams, through: :team_membership
-  has_many :team_membership
+  has_many :team_memberships
 end

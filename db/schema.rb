@@ -11,10 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150427215801) do
+ActiveRecord::Schema.define(version: 20150428031035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "games", force: :cascade do |t|
+    t.string   "rink"
+    t.datetime "game_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "players", force: :cascade do |t|
     t.string   "email",                  default: "", null: false
@@ -38,14 +45,14 @@ ActiveRecord::Schema.define(version: 20150427215801) do
   add_index "players", ["reset_password_token"], name: "index_players_on_reset_password_token", unique: true, using: :btree
 
   create_table "team_memberships", force: :cascade do |t|
-    t.integer  "teams_id"
-    t.integer  "players_id"
+    t.integer  "team_id"
+    t.integer  "player_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_index "team_memberships", ["players_id"], name: "index_team_memberships_on_players_id", using: :btree
-  add_index "team_memberships", ["teams_id"], name: "index_team_memberships_on_teams_id", using: :btree
+  add_index "team_memberships", ["player_id"], name: "index_team_memberships_on_player_id", using: :btree
+  add_index "team_memberships", ["team_id"], name: "index_team_memberships_on_team_id", using: :btree
 
   create_table "teams", force: :cascade do |t|
     t.string   "name"

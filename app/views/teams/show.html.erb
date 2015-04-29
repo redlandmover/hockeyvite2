@@ -1,0 +1,10 @@
+<p id="notice"><%= notice %></p>
+
+<table>
+<% @players.each do |player| %>
+  <%= player.name %>
+  <%= player.usa_number %>
+<% end %>
+
+<%= link_to 'Edit', edit_team_path(@team) %> |
+<%= link_to 'Back', teams_path %>
